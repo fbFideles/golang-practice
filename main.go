@@ -21,14 +21,15 @@ The commands are:
     `)
 }
 
-// main -
 func main() {
 	if len(os.Args) >= 2 {
 		if os.Args[1] == "--help" || os.Args[1] == "-h" {
 			printHelp()
 		} else {
-			switch
-		case:
+			switch {
+			case os.Args[1] == "add":
+
+			}
 		}
 	} else {
 		fmt.Fprintln(os.Stderr, "Insufficient arguments...")
