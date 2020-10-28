@@ -27,7 +27,8 @@ func main() {
 		if os.Args[1] == "--help" || os.Args[1] == "-h" {
 			printHelp()
 		} else {
-
+			switch
+		case:
 		}
 	} else {
 		fmt.Fprintln(os.Stderr, "Insufficient arguments...")
