@@ -21,6 +21,7 @@ The commands are:
     `)
 }
 
+// main -
 func main() {
 	if len(os.Args) >= 2 {
 		if os.Args[1] == "--help" || os.Args[1] == "-h" {
