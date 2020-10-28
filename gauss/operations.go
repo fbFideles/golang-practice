@@ -29,3 +29,27 @@ func (o *Operation) Add(flag bool) (sum interface{}, err error) {
 
 	return
 }
+
+func (o *Operation) Sub(flag bool) (sub interface{}, err error) {
+	if len(o.values) <= 1 {
+		return nil, errors.New("It's not possible to subtract less than 2 operands...")
+	}
+
+	if flag {
+		subTemp := int64(0)
+		for _, num := range o.values {
+			subTemp -= num.(int64)
+		}
+
+		sub = subTemp
+	} else {
+		subTemp := float64(0)
+		for _, num := range o.values {
+			subTemp -= num.(float64)
+		}
+
+		sub = subTemp
+	}
+
+	return
+}
