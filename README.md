@@ -1,4 +1,24 @@
 # golang-practice
 
-This repository consists in my introductory studies of the Go language, implementing some classical algorithims and data structures.
+This repository consists in a command line tool in golang.
 
+
+#  Installation
+---------------
+
+``` sh
+$ git clone https://github.com/fbFideles/golang-practice.git
+$ go build main.go
+$ ./gauss
+
+```
+# Commands
+
+``` sh
+
+#commands for help
+$ ./main --help or ./main -h
+
+
+
+```
