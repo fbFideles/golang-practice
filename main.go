@@ -2,7 +2,10 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
+
+	"github.com/calculator-cli/gauss"
 )
 
 func printHelp() {
@@ -22,13 +25,25 @@ The commands are:
 }
 
 func main() {
+
+	var operation gauss.Operation
+	operation.Values = make([]interface{}, 0)
+
 	if len(os.Args) >= 2 {
 		if os.Args[1] == "--help" || os.Args[1] == "-h" {
 			printHelp()
 		} else {
 			switch {
 			case os.Args[1] == "add":
+				for i := 2; i < len(os.Args); i++ {
+					operation.Values = append(operation.Values, os.Args[i])
+				}
+				sum, err := operation.Add(true)
+				if err != nil {
+					log.Fatal(err)
+				}
 
+				fmt.Println(sum)
 			}
 		}
 	} else {
