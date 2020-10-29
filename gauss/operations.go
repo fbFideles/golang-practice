@@ -2,6 +2,8 @@ package gauss
 
 import (
 	"errors"
+	"log"
+	"strconv"
 )
 
 // Operation -
@@ -13,19 +15,21 @@ type Operation struct {
 func (o *Operation) Add(flag bool) (sum interface{}, err error) {
 
 	if len(o.Values) <= 1 {
-
 		return nil, errors.New("It's not possible to sum less than 2 operands")
 	}
 
 	if flag {
-
 		sumTemp := int64(0)
 		for _, num := range o.Values {
 
-			if i, ok := num.(int64); ok {
-
-				sumTemp += i
+			var s string = num.(string)
+			number, err := strconv.ParseInt(s, 10, 64)
+			if err != nil {
+				log.Fatal(err)
 			}
+
+			sumTemp += number
+
 		}
 
 		sum = sumTemp

@@ -27,6 +27,7 @@ The commands are:
 func main() {
 
 	var operation gauss.Operation
+	operation.Values = make([]interface{}, 0)
 
 	if len(os.Args) >= 2 {
 		if os.Args[1] == "--help" || os.Args[1] == "-h" {
@@ -34,10 +35,9 @@ func main() {
 		} else {
 			switch {
 			case os.Args[1] == "add":
-				for _, args := range os.Args[:2] {
-					operation.Values = append(operation.Values, args)
+				for i := 2; i < len(os.Args); i++ {
+					operation.Values = append(operation.Values, os.Args[i])
 				}
-
 				sum, err := operation.Add(true)
 				if err != nil {
 					log.Fatal(err)
