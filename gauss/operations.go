@@ -36,7 +36,13 @@ func (o *Operation) Add(flag bool) (sum interface{}, err error) {
 	} else {
 		sumTemp := float64(0)
 		for _, num := range o.Values {
-			sumTemp += num.(float64)
+			var s string = num.(string)
+			number, err := strconv.ParseFloat(s, 64)
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			sumTemp += number
 		}
 
 		sum = sumTemp
