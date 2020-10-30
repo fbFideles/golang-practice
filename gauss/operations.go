@@ -60,7 +60,12 @@ func (o *Operation) Sub(flag bool) (sub interface{}, err error) {
 	if flag {
 		subTemp := int64(0)
 		for _, num := range o.Values {
-			subTemp -= num.(int64)
+			var s string = num.(string)
+			number, err := strconv.ParseInt(s, 10, 64)
+			if err != nil {
+				log.Fatal(err)
+			}
+			subTemp -= number
 		}
 
 		sub = subTemp

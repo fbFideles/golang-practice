@@ -38,12 +38,23 @@ func main() {
 				for i := 2; i < len(os.Args); i++ {
 					operation.Values = append(operation.Values, os.Args[i])
 				}
-				sum, err := operation.Add(false)
+				sum, err := operation.Add(true)
 				if err != nil {
 					log.Fatal(err)
 				}
 
 				fmt.Println(sum)
+			case os.Args[1] == "sub":
+				for i := 2; i < len(os.Args); i++ {
+					operation.Values = append(operation.Values, os.Args[i])
+				}
+				sub, err := operation.Sub(true)
+				if err != nil {
+					log.Fatal(err)
+				}
+
+				fmt.Println(sub)
+
 			}
 		}
 	} else {
