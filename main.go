@@ -48,7 +48,7 @@ func main() {
 				for i := 2; i < len(os.Args); i++ {
 					operation.Values = append(operation.Values, os.Args[i])
 				}
-				sub, err := operation.Sub(true)
+				sub, err := operation.Sub(false)
 				if err != nil {
 					log.Fatal(err)
 				}
