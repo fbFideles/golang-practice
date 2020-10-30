@@ -11,6 +11,23 @@ type Operation struct {
 	Values []interface{}
 }
 
+func calculatePrimes() (primes []int64) {
+	var notPrimes = make([]bool, (3400*3400)+1)
+	for i := 2; i < 3400; i++ {
+		for j := i; j < 3400; j++ {
+			notPrimes[i*j] = true
+		}
+	}
+
+	for i := 2; i < len(notPrimes); i++ {
+		if !notPrimes[i] {
+			primes = append(primes, int64(i))
+		}
+	}
+
+	return
+}
+
 // Add -
 func (o *Operation) Add(flag bool) (sum interface{}, err error) {
 	var (
@@ -155,6 +172,37 @@ func (o *Operation) Prod(flag bool) (prod interface{}, err error) {
 		prod = intProd
 	} else {
 		prod = floatProd
+	}
+
+	return
+}
+
+// DecomposePrimes
+func (o *Operation) DecomposePrimes() (deco [][]int64, err error) {
+	deco = make([][]int64, len(o.Values))
+	for i, num := range o.Values {
+		s, ok := num.(string)
+		if !ok {
+			return nil, errors.New("Type value error: not a string")
+		}
+
+		number, err := strconv.ParseInt(s, 10, 64)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		primes := calculatePrimes()
+		j := 0
+		v := primes[0]
+
+		for v <= number {
+			for (number % v) == 0 {
+				deco[i] = append(deco[i], v)
+				number = number / v
+			}
+			j++
+			v = primes[j]
+		}
 	}
 
 	return
