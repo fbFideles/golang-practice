@@ -13,39 +13,44 @@ type Operation struct {
 
 // Add -
 func (o *Operation) Add(flag bool) (sum interface{}, err error) {
+	var (
+		intSum   int64
+		floatSum float64
+	)
 
 	if len(o.Values) <= 1 {
 		return nil, errors.New("It's not possible to sum less than 2 operands")
 	}
 
-	if flag {
-		sumTemp := int64(0)
-		for _, num := range o.Values {
+	for _, num := range o.Values {
 
-			s := num.(string)
+		s, ok := num.(string)
+		if !ok {
+			return nil, errors.New("Type value error: not a string")
+		}
+
+		if flag {
 			number, err := strconv.ParseInt(s, 10, 64)
 			if err != nil {
 				log.Fatal(err)
 			}
 
-			sumTemp += number
-
-		}
-
-		sum = sumTemp
-	} else {
-		sumTemp := float64(0)
-		for _, num := range o.Values {
+			intSum += number
+		} else {
 			s := num.(string)
 			number, err := strconv.ParseFloat(s, 64)
 			if err != nil {
 				log.Fatal(err)
 			}
 
-			sumTemp += number
+			floatSum += number
 		}
+	}
 
-		sum = sumTemp
+	if flag {
+		sum = intSum
+	} else {
+		sum = floatSum
 	}
 
 	return
@@ -53,34 +58,44 @@ func (o *Operation) Add(flag bool) (sum interface{}, err error) {
 
 // Sub -
 func (o *Operation) Sub(flag bool) (sub interface{}, err error) {
+	var (
+		intSub   int64
+		floatSub float64
+	)
+
 	if len(o.Values) <= 1 {
 		return nil, errors.New("It's not possible to subtract less than 2 operands")
 	}
 
-	if flag {
-		subTemp := int64(0)
-		for _, num := range o.Values {
-			s := num.(string)
+	for _, num := range o.Values {
+
+		s, ok := num.(string)
+		if !ok {
+			return nil, errors.New("Type value error: not a string")
+		}
+
+		if flag {
 			number, err := strconv.ParseInt(s, 10, 64)
 			if err != nil {
 				log.Fatal(err)
 			}
-			subTemp -= number
-		}
 
-		sub = subTemp
-	} else {
-		subTemp := float64(0)
-		for _, num := range o.Values {
+			intSub -= number
+		} else {
 			s := num.(string)
 			number, err := strconv.ParseFloat(s, 64)
 			if err != nil {
 				log.Fatal(err)
 			}
-			subTemp -= number
-		}
 
-		sub = subTemp
+			floatSub -= number
+		}
+	}
+
+	if flag {
+		sub = intSub
+	} else {
+		sub = floatSub
 	}
 
 	return
@@ -88,29 +103,44 @@ func (o *Operation) Sub(flag bool) (sub interface{}, err error) {
 
 // Prod -
 func (o *Operation) Prod(flag bool) (prod interface{}, err error) {
+	var (
+		intProd   int64   = 1
+		floatProd float64 = 1
+	)
+
 	if len(o.Values) <= 1 {
-		return nil, errors.New("It's not possible to give the product of less than 2 operands")
+		return nil, errors.New("It's not possible to productory less than 2 operands")
 	}
 
-	if flag {
-		prodTemp := int64(0)
-		for _, num := range o.Values {
-			var s string = num.(string)
+	for _, num := range o.Values {
+
+		s, ok := num.(string)
+		if !ok {
+			return nil, errors.New("Type value error: not a string")
+		}
+
+		if flag {
 			number, err := strconv.ParseInt(s, 10, 64)
 			if err != nil {
 				log.Fatal(err)
 			}
-			prodTemp *= number
-		}
 
-		prod = prodTemp
+			intProd *= number
+		} else {
+			s := num.(string)
+			number, err := strconv.ParseFloat(s, 64)
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			floatProd *= number
+		}
+	}
+
+	if flag {
+		prod = intProd
 	} else {
-		prodTemp := float64(0)
-		for _, num := range o.Values {
-			prodTemp *= num.(float64)
-		}
-
-		prod = prodTemp
+		prod = floatProd
 	}
 
 	return

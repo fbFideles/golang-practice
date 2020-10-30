@@ -55,6 +55,17 @@ func main() {
 
 				fmt.Println(sub)
 
+			case os.Args[1] == "prod":
+				for i := 2; i < len(os.Args); i++ {
+					operation.Values = append(operation.Values, os.Args[i])
+				}
+				prod, err := operation.Prod(false)
+				if err != nil {
+					log.Fatal(err)
+				}
+
+				fmt.Println(prod)
+
 			}
 		}
 	} else {
