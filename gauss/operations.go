@@ -12,18 +12,30 @@ type Operation struct {
 }
 
 func calculatePrimes() (primes []int64) {
-	var notPrimes = make([]bool, (3400*3400)+1)
-	for i := 2; i < 3400; i++ {
-		for j := i; j < 3400; j++ {
+	var (
+		notPrimes = make([]bool, (3000*3000)+1)
+		realSize  = 0
+	)
+
+	primes = make([]int64, (3000*3000)+1)
+	for i := 2; i < 3000; i++ {
+		if notPrimes[i] {
+			continue
+		}
+
+		for j := i; j < 3000; j++ {
 			notPrimes[i*j] = true
 		}
 	}
 
 	for i := 2; i < len(notPrimes); i++ {
 		if !notPrimes[i] {
-			primes = append(primes, int64(i))
+			primes[realSize] = int64(i)
+			realSize++
 		}
 	}
+
+	primes = primes[:realSize+1]
 
 	return
 }
