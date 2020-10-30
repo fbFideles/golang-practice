@@ -92,7 +92,6 @@ func main() {
 
 			}
 
-			}
 		}
 	} else {
 		fmt.Fprintln(os.Stderr, "Insufficient arguments...")
