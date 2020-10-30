@@ -159,3 +159,64 @@ func (o *Operation) Prod(flag bool) (prod interface{}, err error) {
 
 	return
 }
+
+// PointDistance -
+func (o *Operation) PointDistance() (c *float64, err error) {
+	if len(o.Values) != 4 {
+		return nil, errors.New("It's necessary specify at lest and only 4 operands")
+	}
+
+	s1, ok := o.Values[0].(string)
+	if !ok {
+		return nil, errors.New("Type value error: not a string")
+	}
+
+	x1, err := strconv.ParseFloat(s1, 64)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	s2, ok := o.Values[1].(string)
+	if !ok {
+		return nil, errors.New("Type value error: not a string")
+	}
+
+	y1, err := strconv.ParseFloat(s2, 64)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	s3, ok := o.Values[2].(string)
+	if !ok {
+		return nil, errors.New("Type value error: not a string")
+	}
+
+	x2, err := strconv.ParseFloat(s3, 64)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	s4, ok := o.Values[3].(string)
+	if !ok {
+		return nil, errors.New("Type value error: not a string")
+	}
+
+	y2, err := strconv.ParseFloat(s4, 64)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	c2 := ((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2))
+
+	sqrt := c2 / 2
+	temp := float64(0)
+
+	for sqrt != temp {
+		temp = sqrt
+		sqrt = (c2/temp + temp) / 2
+	}
+
+	c = &sqrt
+
+	return
+}

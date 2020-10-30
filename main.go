@@ -20,7 +20,8 @@ The commands are:
 
         add     gives the somatory of the given sequence
         sub     gives the somatory of the negative form of the given sequence
-        prod    gives the productory of the given sequence
+		prod    gives the productory of the given sequence
+		dist    gives the two points distance
     `)
 }
 
@@ -65,6 +66,17 @@ func main() {
 				}
 
 				fmt.Println(prod)
+
+			case os.Args[1] == "dist":
+				for i := 2; i < len(os.Args); i++ {
+					operation.Values = append(operation.Values, os.Args[i])
+				}
+				dist, err := operation.PointDistance()
+				if err != nil {
+					log.Fatal(err)
+				}
+
+				fmt.Println(*dist)
 
 			}
 		}
