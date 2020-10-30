@@ -22,7 +22,7 @@ func (o *Operation) Add(flag bool) (sum interface{}, err error) {
 		sumTemp := int64(0)
 		for _, num := range o.Values {
 
-			var s string = num.(string)
+			s := num.(string)
 			number, err := strconv.ParseInt(s, 10, 64)
 			if err != nil {
 				log.Fatal(err)
@@ -36,7 +36,7 @@ func (o *Operation) Add(flag bool) (sum interface{}, err error) {
 	} else {
 		sumTemp := float64(0)
 		for _, num := range o.Values {
-			var s string = num.(string)
+			s := num.(string)
 			number, err := strconv.ParseFloat(s, 64)
 			if err != nil {
 				log.Fatal(err)
@@ -60,7 +60,7 @@ func (o *Operation) Sub(flag bool) (sub interface{}, err error) {
 	if flag {
 		subTemp := int64(0)
 		for _, num := range o.Values {
-			var s string = num.(string)
+			s := num.(string)
 			number, err := strconv.ParseInt(s, 10, 64)
 			if err != nil {
 				log.Fatal(err)
@@ -72,7 +72,12 @@ func (o *Operation) Sub(flag bool) (sub interface{}, err error) {
 	} else {
 		subTemp := float64(0)
 		for _, num := range o.Values {
-			subTemp -= num.(float64)
+			s := num.(string)
+			number, err := strconv.ParseFloat(s, 64)
+			if err != nil {
+				log.Fatal(err)
+			}
+			subTemp -= number
 		}
 
 		sub = subTemp
